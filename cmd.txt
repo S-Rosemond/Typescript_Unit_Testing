@@ -1,0 +1,4 @@
+install cmd for setup
+npm i -D typescript ts-node @types/node jest ts-jest @types/jest
+
+need a jest.config.js to use import, copy from root
