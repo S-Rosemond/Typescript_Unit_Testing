@@ -2,48 +2,57 @@ import { Utils } from '../app/Utils'
 
 
 describe('Utils test suite', () => {
-   
-    it('should run the first test', () => {
-        const result = Utils.toUpperCase('abc')
-        expect(result).toBe('abc'.toUpperCase())
-    })
-})
 
-describe('URL parse test', (() => {
-
-    it('should parse and create URL object', () => {
-        const parsedUrl = Utils.parseURL('https://localhost:8080/login')
-        expect(parsedUrl.port).toBe('8080')
-        expect(parsedUrl.href).toBe('https://localhost:8080/login')
-        expect(parsedUrl.protocol).toBe('https:')
-        // many overloads from searchParams obj
-        expect(parsedUrl.search).toEqual('') 
+    beforeEach(() => {
+        console.log('before each');
     })
 
-    it('should parse URL with query', () => {
-        const parsedUrl = Utils.parseURL('https://localhost:8080/login?user=test&password=test123')
-        const expectedQuery = '?user=test&password=test123'
-        expect(parsedUrl.search).toBe(expectedQuery)
+    beforeAll(() => {
+        console.log('before all');
     })
 
-    it('should throw an error for invalid URL', () => {
+    test('first test', () => {
+        const result = Utils.toUpperCase('abc');
+        expect(result).toBe('ABC');
+    });
+    test('parse simple URL', () => {
+        const parsedUrl = Utils.parseUrl('http://localhost:8080/login');
+        expect(parsedUrl.href).toBe('http://localhost:8080/login');
+        expect(parsedUrl.port).toBe('8080');
+        expect(parsedUrl.protocol).toBe('http:');
+        expect(parsedUrl.query).toEqual({});
+    });
+
+    test('parse URL with query', () => {
+        const parsedUrl = Utils.parseUrl('http://localhost:8080/login?user=user&password=pass');
+        const expectedQuery = {
+            user: 'user',
+            password: 'pass'
+        }
+        expect(parsedUrl.query).toEqual(expectedQuery);
+        expect(expectedQuery).toBe(expectedQuery);
+    })
+
+    test('test invalid URL', () => {
         function expectError() {
-            Utils.parseURL('')
+            Utils.parseUrl('')
         }
-        console.log(expectError)
-        expect(expectError).toThrowError('Empty Url')
-    })
+        expect(expectError).toThrow('Empty url');
+    });
 
-    it('should test invalid URL with a try catch', () =>{
+    test('test invalid URL with arrow function', () => {
+        expect(() => {
+            Utils.parseUrl('')
+        }).toThrow('Empty url');
+    });
 
+    test.only('test invalid URL with try catch', () => {
         try {
-            Utils.parseURL('')
+            Utils.parseUrl('');
         } catch (error) {
-            expect(error).toBeInstanceOf(Error)
-            expect(error).toHaveProperty('message', 'Empty Url')
+            expect(error).toBeInstanceOf(Error);
+            expect(error).toHaveProperty('message', 'Empty url!');
         }
+    });
 
-
-    })
-
-}))
+});
