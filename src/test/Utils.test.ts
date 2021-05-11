@@ -26,4 +26,24 @@ describe('URL parse test', (() => {
         expect(parsedUrl.search).toBe(expectedQuery)
     })
 
+    it('should throw an error for invalid URL', () => {
+        function expectError() {
+            Utils.parseURL('')
+        }
+        console.log(expectError)
+        expect(expectError).toThrowError('Empty Url')
+    })
+
+    it('should test invalid URL with a try catch', () =>{
+
+        try {
+            Utils.parseURL('')
+        } catch (error) {
+            expect(error).toBeInstanceOf(Error)
+            expect(error).toHaveProperty('message', 'Empty Url')
+        }
+
+
+    })
+
 }))
