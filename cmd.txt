@@ -5,3 +5,5 @@ need a jest.config.js to use import, copy from root
 
 /* istanbul ignore
 above is to ignore test coverage
+
+stubs: use as to partially implement an object
