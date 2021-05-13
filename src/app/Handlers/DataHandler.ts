@@ -38,9 +38,10 @@ export class DataHandler {
         try {
             const operationAuthorized = await this.operationAuthorized(AccessRight.READ);
             if (operationAuthorized) {
-                const parsedUrl = Utils.parseUrl(this.request.url!);
-                if (parsedUrl.query.name) {
-                    const users = await this.usersDBAccess.getUsersByName(parsedUrl.query.name as string);
+                const parsedURL = Utils.parseURL(this.request.url!);
+                const username = parsedURL.username;
+                if (username) {
+                    const users = await this.usersDBAccess.getUsersByName(username);
                     this.response.writeHead(HTTP_CODES.OK, { 'Content-Type': 'application/json' });
                     this.response.write(JSON.stringify(users));
                 } else {
@@ -59,6 +60,7 @@ export class DataHandler {
 
     private async operationAuthorized(operation: AccessRight): Promise<boolean> {
         const tokenId = this.request.headers.authorization;
+        
         if (tokenId) {
             const tokenRights = await this.tokenValidator.validateToken(tokenId);
             if (tokenRights.accessRights.includes(operation)) {

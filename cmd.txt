@@ -7,3 +7,4 @@ need a jest.config.js to use import, copy from root
 above is to ignore test coverage
 
 stubs: use as to partially implement an object
+jest.clearAllMocks w/in afterEach -- good practice
