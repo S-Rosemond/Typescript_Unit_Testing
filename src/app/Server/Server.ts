@@ -9,10 +9,12 @@ export class Server {
 
     private authorizer: Authorizer = new Authorizer();
     private usersDBAccess: UsersDBAccess = new UsersDBAccess();
+    test;
 
     public startServer() {
         createServer(async (req, res) => {
             const basePath = Utils.getRequestBasePath(req);
+            this.test = req
             switch (basePath) {
                 case 'login':
                     await new LoginHandler(req, res, this.authorizer).handleRequest();
@@ -25,6 +27,6 @@ export class Server {
             }
             res.end();
         }).listen(8080);
-        console.log('server started')
+        console.log('server started', this.test)
     }
 }

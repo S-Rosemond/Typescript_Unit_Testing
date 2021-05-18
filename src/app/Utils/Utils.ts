@@ -20,7 +20,8 @@ export class Utils {
         
         if (url) {
             const parsedUrl = this.parseURL(url)
-            if(parsedUrl.pathname) {
+            if(parsedUrl.pathname.length > 1) {
+               
                 return parsedUrl.pathname.split('/')[1]
             }
             return ''

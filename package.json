@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "ts-node src/app/Launcher.ts"
+    "start": "ts-node src/app/Launcher.ts",
+    "itest": "jest --config jest.config.itest.ts"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,10 @@
   },
   "homepage": "https://github.com/S-Rosemond/Typescript_Unit_Testing#readme",
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.2",
+    "axios": "^0.21.1",
     "binary-search-tree": "^0.2.6",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.6",
